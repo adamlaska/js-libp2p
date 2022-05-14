@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "ipfs": "~0.34.4",
+    "ipfs": "~0.36.0",
     "libp2p": "github:libp2p/js-libp2p#master",
     "libp2p-delegated-content-routing": "~0.2.2",
     "libp2p-delegated-peer-routing": "~0.2.2",
@@ -15,7 +15,7 @@
     "libp2p-websockets": "~0.12.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "2.1.8"
+    "react-scripts": "5.0.0"
   },
   "scripts": {
     "start": "react-scripts start"
