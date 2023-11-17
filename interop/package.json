@@ -1,0 +1,73 @@
+{
+  "name": "@libp2p/multidim-interop",
+  "version": "1.0.14",
+  "description": "Multidimensional interop tests",
+  "author": "Glen De Cauwsemaecker <glen@littlebearlabs.io> / @marcopolo",
+  "license": "Apache-2.0 OR MIT",
+  "homepage": "https://github.com/libp2p/js-libp2p/tree/master/interop#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/libp2p/js-libp2p.git"
+  },
+  "bugs": {
+    "url": "https://github.com/libp2p/js-libp2p/issues"
+  },
+  "type": "module",
+  "types": "./dist/src/index.d.ts",
+  "files": [
+    "src",
+    "test",
+    "dist",
+    ".aegir.js",
+    "BrowserDockerfile",
+    "chromium-version.json",
+    "Dockerfile",
+    "firefox-version.json",
+    "Makefile",
+    "node-version.json",
+    "relay.js",
+    "tsconfig.json",
+    "webkit-version.json",
+    "!**/*.tsbuildinfo"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js"
+    }
+  },
+  "eslintConfig": {
+    "extends": "ipfs",
+    "parserOptions": {
+      "project": true,
+      "sourceType": "module"
+    }
+  },
+  "scripts": {
+    "start": "node index.js",
+    "build": "aegir build",
+    "lint": "aegir lint",
+    "test:interop:multidim": "aegir test",
+    "test:transport:interop": "aegir test"
+  },
+  "dependencies": {
+    "@chainsafe/libp2p-noise": "^13.0.0",
+    "@chainsafe/libp2p-yamux": "^5.0.0",
+    "@libp2p/circuit-relay-v2": "^0.0.0",
+    "@libp2p/identify": "^0.0.0",
+    "@libp2p/mplex": "^9.0.12",
+    "@libp2p/ping": "^0.0.0",
+    "@libp2p/tcp": "^8.0.13",
+    "@libp2p/webrtc": "^3.2.11",
+    "@libp2p/websockets": "^7.0.13",
+    "@libp2p/webtransport": "^3.1.10",
+    "@multiformats/mafmt": "^12.1.6",
+    "@multiformats/multiaddr": "^12.1.10",
+    "aegir": "^41.0.2",
+    "libp2p": "^0.46.21",
+    "redis": "^4.5.1"
+  },
+  "browser": {
+    "@libp2p/tcp": false
+  }
+}

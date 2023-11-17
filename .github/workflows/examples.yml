@@ -1,4 +1,4 @@
-name: examples
+name: Examples
 on:
   push:
     branches:
@@ -10,57 +10,47 @@ on:
 jobs:
 
   build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
-      with:
-        node-version: lts/*
-    - uses: ipfs/aegir/actions/cache-node-modules@master
-      with:
-        directories: |
-          ./examples/node_modules
-          ~/.cache
-        build: |
-          cd examples
-          npm i
-          npx playwright install
-        cache_name: cache-examples
-
-  test-example:
-    needs: build
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        example: [
-          chat,
-          connection-encryption,
-          discovery-mechanisms,
-          echo,
-          libp2p-in-the-browser,
-          peer-and-content-routing,
-          pnet,
-          protocol-and-stream-muxing,
-          pubsub,
-          transports,
-          webrtc-direct
-        ]
-      fail-fast: true
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: lts/*
       - uses: ipfs/aegir/actions/cache-node-modules@master
+
+  test-examples:
+    name: Test example ${{ matrix.example.name }}
+    runs-on: ubuntu-latest
+    needs: build
+    continue-on-error: true
+    strategy:
+      matrix:
+        example:
+          - name: js-libp2p-example-chat
+            repo: https://github.com/libp2p/js-libp2p-example-chat.git
+            deps:
+              - '@libp2p/peer-id-factory@$PWD/packages/peer-id-factory'
+              - '@libp2p/tcp@$PWD/packages/transport-tcp'
+              - '@libp2p/websockets@$PWD/packages/transport-websockets'
+              - 'libp2p@$PWD/packages/libp2p'
+          # disabled until @libp2p/identify and @libp2p/circuit-relay are published
+          # - name: js-libp2p-example-circuit-relay
+          #   repo: https://github.com/libp2p/js-libp2p-example-circuit-relay.git
+          #   deps:
+          #     - '@libp2p/circuit-relay@$PWD/packages/transport-circuit-relay'
+          #     - '@libp2p/identify@$PWD/packages/protocol-identify'
+          #     - '@libp2p/websockets@$PWD/packages/transport-websockets'
+          #     - 'libp2p@$PWD/packages/libp2p'
+          - name: js-libp2p-example-connection-encryption
+            repo: https://github.com/libp2p/js-libp2p-example-connection-encryption.git
+            deps:
+              - '@libp2p/tcp@$PWD/packages/transport-tcp'
+              - 'libp2p@$PWD/packages/libp2p'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          directories: |
-            ./examples/node_modules
-            ~/.cache
-          build: |
-            cd examples
-            npm i
-            npx playwright install
-          cache_name: cache-examples
-      - run: |
-          cd examples
-          npm run test -- ${{ matrix.example }}
+          node-version: lts/*
+      - uses: ipfs/aegir/actions/cache-node-modules@master
+      - run: npx xvfb-maybe aegir test-dependant ${{ matrix.example.repo }} --deps ${{ join(matrix.example.deps, ',') }}

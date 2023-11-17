@@ -1,0 +1,36 @@
+{
+  "name": "@libp2p/docs",
+  "version": "1.0.0",
+  "description": "Docs for libp2p",
+  "license": "Apache-2.0 OR MIT",
+  "homepage": "https://github.com/libp2p/js-libp2p/tree/master/doc#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/libp2p/js-libp2p.git"
+  },
+  "bugs": {
+    "url": "https://github.com/libp2p/js-libp2p/issues"
+  },
+  "type": "module",
+  "eslintConfig": {
+    "extends": "ipfs",
+    "parserOptions": {
+      "project": true,
+      "sourceType": "module"
+    }
+  },
+  "scripts": {
+    "doc-check": "aegir doc-check"
+  },
+  "dependencies": {
+    "@chainsafe/libp2p-yamux": "^5.0.0",
+    "@libp2p/interface": "^0.1.0",
+    "@libp2p/mplex": "^9.0.0",
+    "@libp2p/prometheus-metrics": "^2.0.0",
+    "@libp2p/tcp": "^8.0.0",
+    "aegir": "^41.0.2",
+    "libp2p": "^0.46.0",
+    "prom-client": "^15.0.0"
+  },
+  "private": true
+}
