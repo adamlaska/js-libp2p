@@ -17,6 +17,6 @@
     "libp2p": "../../"
   },
   "devDependencies": {
-    "vite": "^2.8.6"
+    "vite": "^4.5.6"
   }
 }
